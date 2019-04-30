@@ -37,22 +37,7 @@ class App extends React.Component {
           </div>
         </div>
         <div className="container">
-          <div className="row mb-3">
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-          </div>
-          <div className="row mb-3">
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-          </div>
           <div className="row">
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
-            <Tile clickme={() => this.countIncrement()} />
             <Tile clickme={() => this.countIncrement()} />
           </div>
         </div>

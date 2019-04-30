@@ -9,7 +9,7 @@ class Tile extends React.Component {
     return this.state.numbers.map(number => (
       <div className="col-3 text-center mb-3">
         <img
-          src="fff.png"
+          src={"/assets/img/img" + number + ".png"}
           alt="test"
           className="img-thumbnail"
           onClick={() => this.props.clickme()}

@@ -14,6 +14,86 @@ class App extends React.Component {
     this.setState({ counter: this.state.counter + 1 });
   }
 
+  shuffle = () => {
+    if (characters) {
+      const shuffledChars = characters.slice();
+      for (let i = shuffledChars.length - 1; i > 0; i--) {
+        const rand = Math.floor(Math.random() * (i + 1));
+        [shuffledChars[i], shuffledChars[rand]] = [
+          shuffledChars[rand],
+          shuffledChars[i]
+        ];
+      }
+      this.setState({
+        characters: shuffledChars
+      });
+    }
+  };
+  checkIfClicked = id => {
+    this.state.characters.forEach(char => {
+      if (char.id === id) {
+        if (char.clicked === false) {
+          this.handleCorrect(id);
+        } else {
+          this.handleIncorrect();
+        }
+      }
+    });
+  };
+  handleCorrect = id => {
+    const { characters, score, topScore } = this.state;
+    const clickAdjusted = characters.map(char => {
+      if (char.id === id) {
+        char.clicked = true;
+      }
+      return char;
+    });
+    const updatedScore = score + 1;
+    const updatedTopScore = updatedScore > topScore ? updatedScore : topScore;
+    this.setState(
+      {
+        characters: clickAdjusted,
+        score: updatedScore,
+        topScore: updatedTopScore,
+        userMessage: "You guessed correctly!"
+      },
+      () => {
+        if (this.state.topScore === 12) {
+          this.winGame();
+        }
+      }
+    );
+    this.shuffle();
+  };
+  handleIncorrect = () => {
+    const allUnclicked = this.state.characters.map(char => {
+      char.clicked = false;
+      return char;
+    });
+    this.setState(
+      {
+        score: 0,
+        characters: allUnclicked,
+        userMessage: "You already clicked that one... Resetting score!"
+      },
+      () => {
+        this.shuffle();
+      }
+    );
+  };
+  winGame = () => {
+    const allUnclicked = this.state.characters.map(char => {
+      char.clicked = false;
+      return char;
+    });
+    this.setState({
+      characters: allUnclicked,
+      instructionsMessage: "You got all 12 in a row, you win!!!",
+      topScore: 0,
+      score: 0
+    });
+  };
+
   render() {
     return (
       <>
